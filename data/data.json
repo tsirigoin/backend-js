@@ -1,0 +1,92 @@
+[
+	{
+		"id": 1,
+		"title": "Product A",
+		"description": "Description for Product A.",
+		"price": 19.99,
+		"thumbnail": "https://example.com/thumbnailA.jpg",
+		"code": "PROD001",
+		"stock": 50
+	},
+	{
+		"id": 2,
+		"title": "Product B",
+		"description": "Description for Product B.",
+		"price": 24.99,
+		"thumbnail": "https://example.com/thumbnailB.jpg",
+		"code": "PROD002",
+		"stock": 75
+	},
+	{
+		"id": 3,
+		"title": "Product C",
+		"description": "Description for Product C.",
+		"price": 29.99,
+		"thumbnail": "https://example.com/thumbnailC.jpg",
+		"code": "PROD003",
+		"stock": 60
+	},
+	{
+		"id": 4,
+		"title": "Product D",
+		"description": "Description for Product D.",
+		"price": 14.99,
+		"thumbnail": "https://example.com/thumbnailD.jpg",
+		"code": "PROD004",
+		"stock": 90
+	},
+	{
+		"id": 5,
+		"title": "Product E",
+		"description": "Description for Product E.",
+		"price": 39.99,
+		"thumbnail": "https://example.com/thumbnailE.jpg",
+		"code": "PROD005",
+		"stock": 25
+	},
+	{
+		"id": 6,
+		"title": "Product F",
+		"description": "Description for Product F.",
+		"price": 22.99,
+		"thumbnail": "https://example.com/thumbnailF.jpg",
+		"code": "PROD006",
+		"stock": 70
+	},
+	{
+		"id": 7,
+		"title": "Product G",
+		"description": "Description for Product G.",
+		"price": 31.99,
+		"thumbnail": "https://example.com/thumbnailG.jpg",
+		"code": "PROD007",
+		"stock": 55
+	},
+	{
+		"id": 8,
+		"title": "Product H",
+		"description": "Description for Product H.",
+		"price": 17.99,
+		"thumbnail": "https://example.com/thumbnailH.jpg",
+		"code": "PROD008",
+		"stock": 80
+	},
+	{
+		"id": 9,
+		"title": "Product I",
+		"description": "Description for Product I.",
+		"price": 27.99,
+		"thumbnail": "https://example.com/thumbnailI.jpg",
+		"code": "PROD009",
+		"stock": 45
+	},
+	{
+		"id": 10,
+		"title": "Product J",
+		"description": "Description for Product J.",
+		"price": 34.99,
+		"thumbnail": "https://example.com/thumbnailJ.jpg",
+		"code": "PROD010",
+		"stock": 65
+	}
+]
