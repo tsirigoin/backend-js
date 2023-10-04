@@ -11,9 +11,11 @@ export class ProductManager {
 	addProduct(product) {
 		this.products = fs.existsSync(this.path) ? JSON.parse(fs.readFileSync(this.path,'utf-8')) : [];
 
-		const {title, description, price, thumbnail, code, stock} = product;
+		const {title, description, price, code, stock} = product;
 
-		if (!title || !description || !price || !thumbnail || !code || !stock) {
+		let { thumbnail } = product;
+
+		if (!title || !description || !price || !code || !stock) {
 			return console.log(`Faltan argumentos`);
 		}
 
@@ -24,6 +26,8 @@ export class ProductManager {
 				return console.log(`Existe un producto con el código ya ingresado.`)
 			}
 		}
+
+		thumbnail = (typeof thumbnail === 'undefined') ? null : thumbnail;
 		
 		this.products.push({
 			title,
@@ -64,7 +68,7 @@ export class ProductManager {
 
 			}
 		} else {
-			return `Path not found.`
+			return null;
 
 		}
 	}

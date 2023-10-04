@@ -88,5 +88,14 @@
 		"thumbnail": "https://example.com/thumbnailJ.jpg",
 		"code": "PROD010",
 		"stock": 65
+	},
+	{
+		"title": "Product L",
+		"description": "Description for Product L.",
+		"price": 34.94,
+		"thumbnail": null,
+		"code": "PROD011",
+		"stock": 69,
+		"id": 1
 	}
 ]
