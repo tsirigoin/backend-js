@@ -1,21 +1,24 @@
 import fs from 'fs';
+import path from 'path';
+
+const patho = path;
 
 export class ProductManager {
 	productId = 1
 
 	constructor(path) {
-		this.path = path;
+		this.path = patho.join('data',path);
 		this.products = [];
 	}
 
 	addProduct(product) {
 		this.products = fs.existsSync(this.path) ? JSON.parse(fs.readFileSync(this.path,'utf-8')) : [];
 
-		const {title, description, price, code, stock} = product;
+		const {title, description, price, code, stock, category} = product;
 
-		let { thumbnail } = product;
+		let { thumbnails, status } = product;
 
-		if (!title || !description || !price || !code || !stock) {
+		if (!title || !description || !price || !code || !stock || !category) {
 			return console.log(`Faltan argumentos`);
 		}
 
@@ -27,15 +30,19 @@ export class ProductManager {
 			}
 		}
 
-		thumbnail = (typeof thumbnail === 'undefined') ? null : thumbnail;
+		thumbnails = (typeof thumbnails === 'undefined') ? null : thumbnails;
+
+		status = (typeof status === 'undefined') ? true : status;
 		
 		this.products.push({
 			title,
 			description,
 			price,
-			thumbnail,
+			thumbnails,
 			code,
 			stock,
+			status,
+			category,
 			id: this.productId
 		});
 
@@ -91,14 +98,20 @@ export class ProductManager {
 				if (product.price && product.price !== prod.price) {
 					prod.price = product.price;
 				}
-				if (product.thumbnail && product.thumbnail !== prod.thumbnail) {
-					prod.thumbnail = product.thumbnail;
+				if (product.thumbnails && product.thumbnails !== prod.thumbnails) {
+					prod.thumbnails = product.thumbnails;
 				}
 				if (product.code && product.code !== prod.code) {
 					elem.code = product.code;
 				}
 				if (product.stock && product.stock !== prod.stock) {
 					prod.stock = product.stock;
+				}
+				if (product.status && product.status !== prod.status) {
+					prod.status = product.status;
+				}
+				if (product.category && product.category !== prod.category) {
+					prod.category = product.category;
 				}
 
 				this.products[i] = prod;
@@ -117,6 +130,8 @@ export class ProductManager {
 			this.products = JSON.parse(fs.readFileSync(this.path,'utf-8'));
 
 			this.products = this.products.filter(elem => elem.id !== id);
+
+			fs.writeFileSync(this.path,JSON.stringify(this.products,null,'\t'));
 		} else {
 			return `Path not found`;
 		}
