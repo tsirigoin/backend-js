@@ -90,12 +90,12 @@
 		"stock": 65
 	},
 	{
+		"id": 11,
 		"title": "Product L",
 		"description": "Description for Product L.",
 		"price": 34.94,
 		"thumbnail": null,
 		"code": "PROD011",
-		"stock": 69,
-		"id": 1
+		"stock": 69
 	}
 ]

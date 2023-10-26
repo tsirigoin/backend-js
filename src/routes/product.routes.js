@@ -1,6 +1,6 @@
 import express from 'express';
 import { uploader } from '../utils.js';
-import { ProductManager } from '../managers/productManager.js';
+import { ProductManager } from '../managers/product.manager.js';
 
 const router = express.Router();
 const productManager = new ProductManager('../data/products.json');

@@ -1,6 +1,6 @@
 import express from 'express';
-import { ProductManager } from '../managers/productManager.js';
-import { CartManager } from '../managers/cartManager.js';
+import { ProductManager } from '../managers/product.manager.js';
+import { CartManager } from '../managers/cart.manager.js';
 
 const router = express.Router();
 const cartManager = new CartManager('../../data/carts.json');
