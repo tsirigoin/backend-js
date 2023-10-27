@@ -1,1 +1,1 @@
-console.log(products);
+var socket = io();

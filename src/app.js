@@ -33,10 +33,4 @@ io.on('connection', socket => {
 	socket.on('message', data => {
 		console.log(data);
 	})
-
-	socket.emit('individual','Mensaje para uno');
-
-	socket.broadcast.emit('not-emitter','Mensaje para todos menos yo');
-
-	io.emit('for-all','Mensaje para absolutamente todos');
 })
