@@ -4,10 +4,12 @@ import handlebars from 'express-handlebars';
 import cartRoutes from './routes/cart.routes.js';
 import productRoutes from './routes/product.routes.js';
 import viewRoutes from './routes/views.routes.js';
+import { ProductManager } from './managers/product.manager.js';
 import { Server } from 'socket.io';
 
 const app = express();
 const port = 8080;
+const productManager = new ProductManager('../data/products.json');
 
 const httpServer = app.listen(port,() => {
 	console.log(`LISTENING ON http://localhost:${port}`);
@@ -33,4 +35,6 @@ io.on('connection', socket => {
 	socket.on('message', data => {
 		console.log(data);
 	})
+
+	io.emit('prods',productManager.getProducts())
 })
