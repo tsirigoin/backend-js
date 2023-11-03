@@ -1,5 +1,6 @@
 var socket = io();
 
-socket.on('prods', data => {
-	products = data;
+socket.on('products', data => {
+	let list = document.getElementById('products');
+	let products = "";
 });
