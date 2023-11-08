@@ -4,8 +4,10 @@ import handlebars from 'express-handlebars';
 import cartRoutes from './routes/cart.routes.js';
 import productRoutes from './routes/product.routes.js';
 import viewRoutes from './routes/views.routes.js';
+import userRoutes from './routes/users.routes.js';
 import { ProductManager } from './managers/product.manager.js';
 import { Server } from 'socket.io';
+import mongoose from 'mongoose';
 
 const app = express();
 const port = 8080;
@@ -16,6 +18,12 @@ const httpServer = app.listen(port,() => {
 });
 
 const io = new Server(httpServer);
+
+const connectToMongo = async () => {
+	await mongoose.connect('mongodb+srv://tsirigoin:XhahcFituRwMsvfD@main-cluster.skizt3m.mongodb.net/?retryWrites=true&w=majority');
+	console.log('Connected to MongoDB');
+}
+connectToMongo();
 
 app.engine('handlebars',handlebars.engine());
 app.set('views',__dirname + '/views');
@@ -28,6 +36,7 @@ app.use(express.static(__dirname + '/public'));
 app.use('/api/carts/',cartRoutes);
 app.use('/api/products/',productRoutes);
 app.use('/',viewRoutes);
+app.use('/api/users/',userRoutes);
 
 io.on('connection', socket => {
 	console.log("Se conectó un usuario.");
