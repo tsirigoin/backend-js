@@ -1,11 +1,14 @@
 import mongoose from 'mongoose';
 
-const categoryCollection = 'categories';
+const collectionName = 'categories';
 
 const categorySchema = mongoose.Schema({
-	name: String
+	name: {
+		type: String,
+		required: true
+	}
 });
 
-const categoryModel = mongoose.model(categoryCollection,categorySchema);
+const Category = mongoose.model(collectionName,categorySchema);
 
-export default categoryModel;
+export default Category;

@@ -2,15 +2,23 @@ import { Decimal128 } from 'mongodb';
 import mongoose from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
-const productCollection = 'products';
+const collectionName = 'products';
 
 const productSchema = new mongoose.Schema({
 	title: {
 		type: String,
 		index: true,
+		required: true
 	},
 	description: String,
-	price: Decimal128,
+	price: {
+		type: Decimal128,
+		required: true,
+		validate: {
+			validator: (value) => value >= 0,
+			message: 'Price must not be negative.'
+		}
+	},
 	thumbnails: {
 		type: [
 			{
@@ -25,19 +33,26 @@ const productSchema = new mongoose.Schema({
 	code: {
 		type: String,
 		index: true,
-		unique: true
+		unique: true,
+		required: true
 	},
-	stock: Int32Array,
+	stock: {
+		type: Number,
+		required: true,
+		validate: {
+			validator: (value) => value >= 0,
+			message: 'Stock must not be negative.'
+		}
+	},
 	status: {
-		type: [
+		type: 
 			{
 				status: {
 					type: mongoose.Schema.Types.ObjectId,
 					ref: 'status'
 				}
-			}
-		],
-		default: []
+			},
+		required: true
 	},
 	categories: {
 		type: [
@@ -54,6 +69,6 @@ const productSchema = new mongoose.Schema({
 
 productSchema.plugin(mongoosePaginate);
 
-const productModel = mongoose.model(productCollection,productSchema);
+const Product = mongoose.model(collectionName,productSchema);
 
-export default productModel;
+export default Product;

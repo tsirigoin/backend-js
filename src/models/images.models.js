@@ -1,15 +1,19 @@
 import mongoose from 'mongoose';
 
-const imagesCollection = 'images';
+const collectionName = 'images';
 
 const imagesSchema = new mongoose.Schema({
 	name: {
 		type: String,
-		index: true
+		index: true,
+		required: true
 	},
-	dir: String
+	dir: {
+		type: String,
+		required: true
+	}
 })
 
-const imagesModel = mongoose.model(imagesCollection,imagesSchema);
+const Image = mongoose.model(collectionName,imagesSchema);
 
-export default imagesModel;
+export default Image;

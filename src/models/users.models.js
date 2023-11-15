@@ -1,24 +1,32 @@
 import mongoose from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
-const userCollection = 'users';
+const collectionName = 'users';
+
+const validGenders = ['male','female','other'];
 
 const userSchema = new mongoose.Schema({
 	username: {
 		type: String,
 		index: true,
-		unique: true
+		unique: true,
+		required: true
 	},
 	firstName: String,
 	lastName: String,
 	email: {
 		type: String,
-		unique: true
+		unique: true,
+		required: true
 	},
-	gender: String
+	gender: {
+		type: String,
+		enum: validGenders
+	}
 });
+
 userSchema.plugin(mongoosePaginate);
 
-const userModel = mongoose.model(userCollection,userSchema);
+const User = mongoose.model(collectionName,userSchema);
 
-export default userModel;
+export default User;

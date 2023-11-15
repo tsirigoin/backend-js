@@ -20,7 +20,7 @@ const httpServer = app.listen(port,() => {
 const io = new Server(httpServer);
 
 const connectToMongo = async () => {
-	await mongoose.connect('mongodb+srv://tsirigoin:XhahcFituRwMsvfD@main-cluster.skizt3m.mongodb.net/?retryWrites=true&w=majority');
+	await mongoose.connect('mongodb+srv://tsirigoin:XhahcFituRwMsvfD@main-cluster.skizt3m.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, dbName: 'test' });
 	console.log('Connected to MongoDB');
 }
 connectToMongo();

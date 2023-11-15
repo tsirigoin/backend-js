@@ -1,51 +1,78 @@
 import { Router } from 'express';
-import userModel from '../models/users.models.js';
+import User from '../models/users.models.js';
 
 const router = Router();
 
-router.get('/', async (req,res) => {
+router.get('/', async (req, res) => {
 	try {
-		let users = await userModel.find();
-		res.send({result:"success",payload:users});
-	}
-	catch(error) {
-		console.log('Cannot get users with mongoose: '+error);
+		const users = await User.find();
+		res.send({ status: 'success', payload: users });
+	} catch (error) {
+		console.error('Cannot get users with mongoose: ' + error);
+		res.status(500).send({ status: 'error', error: 'Internal server error.' });
 	}
 });
 
-router.post('/', async (req,res) => {
+router.post('/', async (req, res) => {
 	console.log(req.body);
 
-	let {firstName, lastName, email} = req.body;
+	const { username, firstName, lastName, email, gender } = req.body;
 
-	if (!firstName || !lastName || !email) return res.send({status:"error",error:"Incomplete values"});
+	if (!username || !email) return res.status(400).send({ status: 'error', error: 'Incomplete values' });
 
-	let result = await userModel.create({
-		firstName,
-		lastName,
-		email
-	});
+	try {
+		const result = await User.create({
+			username,
+			firstName,
+			lastName,
+			email,
+			gender
+		});
 
-	res.send({status:"success",payload:result});
+		res.send({ status: 'success', payload: result });
+	} catch (error) {
+		console.error('Error creating user: ' + error);
+		res.status(500).send({ status: 'error', error: 'Internal server error.' });
+	}
 });
 
-router.put('/:uid', async (req,res) => {
-	const {uid} = req.params;
+router.put('/:uid', async (req, res) => {
+	const { uid } = req.params;
 
-	let userToReplace = req.body;
+	const userToReplace = req.body;
 
-	if (!userToReplace.firstName || !userToReplace.lastName || !userToReplace.email)
-		return res.send({status:"error",error:"Incomplete values"});
+	if (!userToReplace.username || !userToReplace.email)
+		return res.status(400).send({ status: 'error', error: 'Incomplete values' });
 
-	let result = await userModel.updateOne({_id: uid},userToReplace);
-	res.send({status:"success",payload:result});
+	try {
+		const result = await User.updateOne({ _id: uid }, userToReplace);
+
+		if (result.nModified === 0) {
+			return res.status(404).send({ status: 'error', error: 'User not found.' });
+		}
+
+		res.send({ status: 'success', payload: result });
+	} catch (error) {
+		console.error('Error updating user: ' + error);
+		res.status(500).send({ status: 'error', error: 'Internal server error.' });
+	}
 });
 
-router.delete('/:uid', async (req,res) => {
-	const {uid} = req.params;
+router.delete('/:uid', async (req, res) => {
+	const { uid } = req.params;
 
-	let result = await userModel.deleteOne({_id: uid});
-	res.send({status:"success",payload:result});
+	try {
+		const result = await User.deleteOne({ _id: uid });
+
+		if (result.deletedCount === 0) {
+			return res.status(404).send({ status: 'error', error: 'User not found.' });
+		}
+
+		res.send({ status: 'success', payload: result });
+	} catch (error) {
+		console.error('Error deleting user: ' + error);
+		res.status(500).send({ status: 'error', error: 'Internal server error.' });
+	}
 });
 
 export default router;

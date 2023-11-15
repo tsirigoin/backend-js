@@ -1,11 +1,14 @@
 import mongoose from 'mongoose';
 
-const statusCollection = 'status';
+const collectionName = 'status';
 
 const statusSchema = mongoose.Schema({
-	name: String
+	name: {
+		type: String,
+		required: true
+	}
 });
 
-const statusModel = mongoose.model(statusCollection,statusSchema);
+const Status = mongoose.model(collectionName,statusSchema);
 
-export default statusModel;
+export default Status;
